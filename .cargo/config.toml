@@ -1,0 +1,8 @@
+[build]
+target = "x86_64-pc-windows-gnu"
+
+[registries.crates-io]
+protocol = "git"
+
+[net]
+git-fetch-with-cli = true

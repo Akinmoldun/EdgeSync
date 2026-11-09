@@ -1,0 +1,45 @@
+# Rust
+target/
+**/*.rs.bk
+Cargo.lock
+
+# Go
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+
+# SQLite
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# Environment & IDE
+.env
+.env.local
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Keys & Certificates (Hard ban: never commit keys or certs)
+*.key
+device.key
+*.pem
+*.crt
+*.cert
+*.csr
+*.srl
+*.p12
+*.pfx
+certs/
+*.db
+*.sqlite
