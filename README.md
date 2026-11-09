@@ -9,7 +9,7 @@
 
 **DDIL-Resilient, Offline-First Edge Synchronization Engine**
 
-EdgeSync is a dual-tier synchronization system designed for **Denied, Disrupted, Intermittent, and Limited (DDIL)** connectivity environments. It provides cryptographic event sourcing on edge nodes with deterministic causal consistency and explicit conflict surfacing on the server.
+EdgeSync is a dual-tier synchronization system designed for **Denied, Disrupted, Intermittent, and Limited (DDIL)** connectivity environment. It provides cryptographic event sourcing on edge nodes with deterministic causal consistency and explicit conflict surfacing on the server.
 
 ---
 
