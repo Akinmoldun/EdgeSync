@@ -138,6 +138,30 @@ cargo test
 
 ---
 
+## Security Model & Known Limitations
+
+### What is enforced
+
+- **Device identity on push:** Every event pushed to `/sync/push` is verified against the device's registered Ed25519 public key. Unsigned, tampered, or unknown-device events are rejected with `400` or `401`.
+- **At-rest encryption:** The edge client's SQLite database is encrypted with SQLCipher (AES-256). Opening it without the correct `--db-key` fails immediately.
+- **Event ordering:** Causal ordering is enforced mathematically via Vector Clocks. No wall-clock timestamps are trusted.
+- **Idempotency:** Client-generated UUIDs are the primary key for events. Duplicate pushes are silently ignored.
+
+### What is NOT enforced (current limitations)
+
+- **Device identity on pull:** `GET /sync/pull` and `GET /conflicts` do not currently verify device signatures. In a private deployment, this is mitigated by mTLS (`tls.RequireAndVerifyClientCert`). In the public HTTP-fallback demo deployment (used for easy review), this mitigation is disabled.
+- **Authorization:** There is no tenant or user scoping. All connected devices share a single global namespace.
+- **Key rotation:** Ed25519 device keys are generated once. There is no revocation or rotation mechanism in `v1.0.0`.
+- **Transport without mTLS:** When deployed without mTLS (as in the public demo), payloads are transmitted over TLS provided by the edge proxy (Fly.io), but not mutual TLS.
+- **Full end-to-end encryption:** Events are signed, not encrypted at rest on the server. Server operators can read payloads.
+
+### Production hardening checklist (out of scope for v1.0.0)
+
+- Wire signature verification into pull/conflicts endpoints
+- Add per-device authorization scoping
+- Add key revocation endpoint
+- Encrypt event payloads with recipient public keys (forward secrecy)
+
 ## Documentation
 
 - **Deployment Guide:** [`docs/deploy.md`](docs/deploy.md) - Fly.io cloud deployment manual.
