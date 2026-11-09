@@ -43,3 +43,6 @@ device.key
 certs/
 *.db
 *.sqlite
+
+# Local Rust toolchain overrides (Windows-specific, not portable)
+.cargo/
